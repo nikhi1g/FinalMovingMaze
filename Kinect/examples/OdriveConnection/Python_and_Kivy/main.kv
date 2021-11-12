@@ -1,0 +1,17 @@
+<MainScreen>:
+    #: import time __main__.time
+    button1: button1
+
+    name: 'main'
+
+    FloatLayout:
+        size_hint: None, None
+
+    DPEAButton:
+        id: button1
+        text: 'on'
+        size: 100, 100
+        center_x: root.width * .5
+        center_y: root.height * 0.5
+        color: 0, 1, 0, 1
+        on_press: root.btn()
