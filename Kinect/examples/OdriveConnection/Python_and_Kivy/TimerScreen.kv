@@ -1,0 +1,35 @@
+<TimerScreen>:
+
+
+    on_enter: root.timer_label_update_thread()
+
+    color: 1,1,1,1
+    name: 'TimerScreen'
+
+    timer: timer
+    timer1: timer1
+
+
+    FloatLayout:
+        size_hint: None, None
+
+
+    Label:
+        id:timer
+        text: "Time: "
+        pos_hint:{"x":-.1,"y": .4}
+        color: 0, 0.4, 0, 1
+        font_size: 30
+
+
+    DPEAButton:
+        id: timer1
+        text: 'time1'
+        size: 50, 50
+        pos_hint:{"x":.02,"y": .55}
+        color: 0, 1, 0, 1
+        on_press: root.go_to_keyboard()
+        font_size: 20
+
+
+
