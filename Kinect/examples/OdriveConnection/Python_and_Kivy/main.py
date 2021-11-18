@@ -1,17 +1,22 @@
+import random
+
+import keyboard
+
 import TripleMain
 # os.environ['DISPLAY'] = ":0.0"
 # os.environ['KIVY_WINDOW'] = 'egl_rpi'
 from kivy.properties import ObjectProperty
 from kivy.app import App
-from kivy.core.window import Window
+from kivy.core.window import Window,Animation
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from threading import Thread
 from time import sleep
 from pidev.kivy import DPEAButton
-
+from pidev.kivy import ImageButton
 # from datetime import datetime
-
+from pidev.kivy.selfupdatinglabel import SelfUpdatingLabel
+from pidev.MixPanel import MixPanel
 MAIN_SCREEN_NAME = 'main'
 TIMER_SCREEN_NAME = 'TimerScreen'
 WAIT_SCREEN_NAME = 'WaitScreen'
@@ -73,199 +78,239 @@ class MainScreen(Screen):
     fileonopen.write(' ')
     fileonopen.close()
 
+
+
+    def old_clear(self):
+        deletion = 0
+        while deletion < 30:
+            self.DELETE_Key_Update()
+            self.deletion += 1
+
+
+    counter = 0
+    def resetimername(self):
+        for i in range(30):
+            self.DELETE_Key_Update()
+        self.timer.text = "ENTER YOUR NAME: "
+        self.keyboard_movement_update()
+    def keyboard_movement_update(self):#call to TripleMain?
+        print('')
+        #TripleMain.KeyboardIsOn = True
     def A_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.a1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def B_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.b1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def C_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.c1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def D_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.d1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def E_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.e1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def F_Key_Update(self):
         file = open('namestorage.txt', 'a')  #
         file.write(str(self.f1.text))
         file.close()
         self.display_name()
 
+        self.counter += 1
     def G_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.g1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def H_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.h1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def I_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.i1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def J_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.j1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def K_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.k1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def L_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.l1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def M_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.m1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def N_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.n1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def O_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.o1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def P_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.p1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def Q_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.q1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def R_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.r1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def S_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.s1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def T_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.t1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def U_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.u1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def V_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.v1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def W_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.w1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def X_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.x1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def Y_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.y1.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def Z_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.z1.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def SPACE_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.space.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def STAR_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.star.text))
         file.close()
         self.display_name()
+        self.counter += 1
 
     def DASH_Key_Update(self):
         file = open('namestorage.txt', 'a')
         file.write(str(self.dash.text))
         file.close()
         self.display_name()
-
+        self.counter += 1
     def ENTER_Key_Update(self):
-        file = open('namestorage.txt', 'r')
-        name = file.read()
-        file.close()
-        file = open('storage.txt', 'a')
-        file.write(name)
-        file.write('\n')
-        file.close()
-        sleep(0.4)
-        SCREEN_MANAGER.current = WAIT_SCREEN_NAME
+        if self.counter > 0:
+            file = open('namestorage.txt', 'r')
+            name = file.read()
+            file.close()
+            file = open('storage.txt', 'a')
+            file.write(name)
+            file.close()
+            # Thread(target=self.reset_name).start()
+            sleep(0.4)
 
+            SCREEN_MANAGER.current = WAIT_SCREEN_NAME
+        elif self.counter == 0:
+            file = open('storage.txt', 'a')
+            file.write(' Bob')
+            file.close()
+            sleep(0.4)
+            SCREEN_MANAGER.current = WAIT_SCREEN_NAME
 
     def DELETE_Key_Update(self):  # this WORKS omg
-        with open('namestorage.txt', 'rb+') as f:
-            f.seek(0, 2)  # end of file
-            size = f.tell()  # the size...
-            f.truncate(size - 1)  # truncate at that size - how ever many characters
-            self.display_name()
 
+        if self.counter > 0:
+            with open('namestorage.txt', 'rb+') as f:
+                f.seek(0, 2)  # end of file
+                size = f.tell()  # the size...
+                f.truncate(size - 1)  # truncate at that size - how ever many characters
+                self.display_name()
+                self.counter -= 1
+            if self.counter < 0:
+                self.counter = 0
 
     def display_name(self):
         file = open('namestorage.txt', 'r')
@@ -273,13 +318,68 @@ class MainScreen(Screen):
         file.close()
         self.timer.text = name
 
+    def reset_name(self):
+        self.timer.text = "ENTER YOUR NAME: "
+
 
 
 class WaitScreen(Screen):
     def __init__(self, **kwargs):
         super(WaitScreen, self).__init__(**kwargs)
 
+    first_place = ObjectProperty(None)
     loading = ObjectProperty(None)
+    print("Before file")
+    lines = []
+    scores = []
+    names = []
+
+    def score_update(self):
+
+        with open("storage.txt") as file_in:
+            for line in file_in:
+                self.lines.append(line)
+
+        for line in self.lines:
+            self.scores.append(line.split()[0])
+            self.names.append(line.split()[1])
+
+        print(self.scores)
+        print(self.names)
+        #converting to int
+        scoresint = []
+        for i in range(len(self.scores)):
+            q = int(self.scores[i])
+            scoresint.append(q)
+        #firstplacefinder
+        #so we have scoresint, and scores. Find the min, remove it from both, and then find the next min inside a variable.
+
+
+        leaderboard = []
+        index = scoresint.index(min(scoresint))
+        nextplace = self.names[index]
+        leaderboard.append(nextplace)
+        del self.names[index]
+        del scoresint[index]
+        del self.scores[index]
+
+
+        self.first_place.text = str(leaderboard)
+        self.switch_screen()
+
+    def switch_screen(self):
+        sleep(8)
+        SCREEN_MANAGER.current = TIMER_SCREEN_NAME
+        # SCREEN_MANAGER.current = 'TimeScreen'
+        print("Switch screen")
+        sleep(1)
+        TripleMain.global_variable_reset()
+        # return time_switch
+
+
+
+
+
 
 class TimerScreen(Screen):
 
@@ -287,23 +387,38 @@ class TimerScreen(Screen):
         super(TimerScreen, self).__init__(**kwargs)
 
     timer = ObjectProperty(None)
-    timer1 = ObjectProperty(None)
+
 
     # update the label of timer to be the seconds that have been passed
 
     def go_to_keyboard(self):
         SCREEN_MANAGER.current = MAIN_SCREEN_NAME
 
+    def timer_label_update_thread(self):
+        Thread(target=self.timer_label_update).start()
     def timer_label_update(self):
+        global SECONDS
+        self.timer.font_size = 150
+
+        self.timer.text = "GET READY!"
+        sleep(5)
+        self.timer.text = "THREE"
+        sleep(0.8)
+        self.timer.text = "TWO"
+        sleep(0.8)
+        self.timer.text = "ONE"
+        sleep(0.8)
+        self.timer.text = "GO!!!"
+        sleep(1.6)
         while True:
-            self.timer.text = "Time passed: " + str(get_seconds()-13)
-            sleep(0.5)
+            randomnum = random.randint(400, 411)
+            self.timer.text = str(TripleMain.seconds-8)
+            self.timer.font_size = randomnum
+            sleep(1)
             if TripleMain.KinectIsOn == False:
                 SCREEN_MANAGER.current = MAIN_SCREEN_NAME
                 break
 
-    def timer_label_update_thread(self):
-        Thread(target=self.timer_label_update).start()
 
 
 
@@ -311,18 +426,16 @@ def everything_start():
     TripleMain.odrive_and_kinect_startup()
 
 
-def get_seconds():
-    while True:
-        return TripleMain.seconds
 
 
 Builder.load_file('TimerScreen.kv')
 Builder.load_file('main.kv')
 Builder.load_file('WaitScreen.kv')
+#Builder.load_file('Leaderboard.kv')
 SCREEN_MANAGER.add_widget(TimerScreen(name=TIMER_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(WaitScreen(name=WAIT_SCREEN_NAME))
-SCREEN_MANAGER.current = TIMER_SCREEN_NAME
+# SCREEN_MANAGER.current = TIMER_SCREEN_NAME
 
 
 

@@ -1,21 +1,18 @@
 <WaitScreen>:
 
+    on_enter: root.score_update()
+    first_place:first_place
 
-
-    color: 1,1,1,1
-    name: 'WaitScreen'
-
-    loading: loading
 
     FloatLayout:
         size_hint: None, None
 
 
     Label:
-        id:loading
-        text: "Loading..."
-        pos_hint:{"x":-.1,"y": .4}
-        color: 0, 0.4, 0, 1
+        id:first_place
+        text: "1st Place: "
+        pos_hint:{"x":-.15,"y": .4}
+        color: 0.5, 0.5, 0, 1
         font_size: 30
 
 

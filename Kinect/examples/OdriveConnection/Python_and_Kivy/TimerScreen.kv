@@ -7,7 +7,7 @@
     name: 'TimerScreen'
 
     timer: timer
-    timer1: timer1
+
 
 
     FloatLayout:
@@ -17,19 +17,9 @@
     Label:
         id:timer
         text: "Time: "
-        pos_hint:{"x":-.1,"y": .4}
+        pos_hint:{"x":0,"y": 0}
         color: 0, 0.4, 0, 1
-        font_size: 30
-
-
-    DPEAButton:
-        id: timer1
-        text: 'time1'
-        size: 50, 50
-        pos_hint:{"x":.02,"y": .55}
-        color: 0, 1, 0, 1
-        on_press: root.go_to_keyboard()
-        font_size: 20
+        font_size: 100
 
 
 
