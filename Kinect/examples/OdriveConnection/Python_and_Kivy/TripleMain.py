@@ -52,8 +52,6 @@ import pyautogui
 KinectIsOn = True
 kivyIsOn = False
 time_start = time.time()
-TimerRunning = True
-seconds = 0
 KeyboardIsOn = False
 
 def global_variable_reset():
@@ -66,33 +64,31 @@ def global_variable_reset():
     KeyboardIsOn = False
     KinectIsOn = True
     kivyIsOn = False
-
     time_start = time.time()
-    TimerRunning = True
-    seconds = 0
-
-    timer_update()
-
-def timer_update():
-    global seconds
-    global TimerRunning
-    while TimerRunning:
-        # print ("Timer On")
-        print(seconds)
-        print(' ')
-        print(' ')
-        time.sleep(1)
-        seconds = int(time.time() - time_start)
 
 
-def Kivy_Update():
+    #timer_update()
 
-    print("Seconds Passed:", seconds)
-    file = open('storage.txt', 'a')
-    file.write('\n'+str(seconds) + '')
-    file.close()
-    global TimerRunning
-    TimerRunning = False
+# def timer_update():
+#     global seconds
+#     global TimerRunning
+#     while TimerRunning:
+#         # print ("Timer On")
+#         print(seconds)
+#         print(' ')
+#         print(' ')
+#         time.sleep(1)
+#         seconds = int(time.time() - time_start)
+
+
+# def Kivy_Update():
+#
+#     print("Seconds Passed:", seconds)
+#     file = open('storage.txt', 'a')
+#     file.write('\n'+str(seconds) + '')
+#     file.close()
+#     global TimerRunning
+#     TimerRunning = False
 
 
     # https://stackoverflow.com/questions/56711424/how-can-i-count-time-in-python-3
@@ -101,6 +97,8 @@ def Kivy_Update():
 def odrive_and_kinect_startup():
     global KinectIsOn
     KinectIsOn = True
+    global KeyboardIsOn
+    KeyboardIsOn = False
     # dumperrors
     dump_errors(odboard)
     # define ax and ay
@@ -157,7 +155,7 @@ def odrive_and_kinect_startup():
     capture_list = []
 
     # START TIM
-    Thread(target=timer_update).start()
+    #Thread(target=timer_update).start()
     while True:
 
         # Get capture
@@ -233,9 +231,9 @@ def odrive_and_kinect_startup():
                 odboard1.clear_errors()
                 ax.set_vel(0)
                 az.set_vel(0)
-                sleep(3)
-                Thread(target=Kivy_Update).start()
-                sleep(1)
+                #sleep(3)
+                #Thread(target=Kivy_Update).start()
+                #sleep(1)
                 KinectIsOn = False
 
         if KeyboardIsOn:
@@ -337,7 +335,7 @@ if __name__ == '__main__':
     # run the Kinect
     capture_list = []
 
-    Thread(target=timer_update).start()  # START TIM
+    #Thread(target=timer_update).start()  # START TIM
 
 
     while True:
