@@ -350,58 +350,90 @@ class WaitScreen(Screen):
     first_place = ObjectProperty(None)
     loading = ObjectProperty(None)
     print("Before file")
-    lines = []
-    scores = []
-    names = []
+    # lines = []
+    # scores = []
+    # names = []
 
     def score_update(self):
+        scores = []
+        names = []
+        with open("storage.txt", "r") as file:
+            for line in file:
+                split_line = line.strip().split()
+                scores.append(split_line[0])
+                names.append(split_line[1])
+        print("Scores:", scores)
+        print("Names:", names)
 
-        with open("storage.txt") as file_in:
-            for line in file_in:
-                self.lines.append(line)
+        pairs = list(zip(scores, names))
+        print("Pairs Before:", pairs)
+        pairs.sort(key=lambda pair: int(pair[0]))
+        print("Pairs After:", pairs)
 
-        for line in self.lines:
-            self.scores.append(line.split()[0])
-            self.names.append(line.split()[1])
+        # string = ""
+        # for element in pairs:
+        #     string += element
 
-        print(self.scores)
-        print(self.names)
-        # converting to int
-        scoresint = []
-        for i in range(len(self.scores)):
-            q = int(self.scores[i])
-            scoresint.append(q)
-        # firstplacefinder
-        # so we have scoresint, and scores. Find the min, remove it from both, and then find the next min inside a variable.
-
-
-
-        leaderboardnames = []
-        leaderboardscores = []
-        print(leaderboardscores)
-        print(leaderboardnames)
-        leaderboardscores.clear()
-        leaderboardnames.clear()
-        print(leaderboardscores)
-        print(leaderboardnames)
-        for i in range(10):
-            index = scoresint.index(min(scoresint))
-            leadnames = self.names[index]
-            leaderboardnames.append(leadnames)
-            leadscores = self.scores[index]
-            leaderboardscores.append(leadscores)
-            del self.names[index]
-            del scoresint[index]
-            del self.scores[index]
+        count =0
+        score_board = ""
+        while count < 10:
+            score_board += pairs[count][0]+" " + pairs[count][1] + "\n"
+            count+=1
+        self.first_place.text= score_board
 
 
 
-        for i in range(10):
-            print(str(leaderboardnames[i]), 'with a score of ' + str(leaderboardscores[i]))
+        # with open("storage.txt") as file_in:
+        #     for line in file_in:
+        #         self.lines.append(line)
+        #
+        # for line in self.lines:
+        #     self.scores.append(line.split()[0])
+        #     self.names.append(line.split()[1])
+        #
+        # print(self.scores)
+        # print(self.names)
+        # # converting to int
+        # scoresint = []
+        # for i in range(len(self.scores)):
+        #     q = int(self.scores[i])
+        #     scoresint.append(q)
+        #
+        # dict_scores_names = {}
+        # for i in range(1,len(scoresint)):
+        #     dict_scores_names[self.names[i]]=(scoresint[i])
+        # print(dict_scores_names)
 
-        leaderboardscores.clear()
-        leaderboardnames.clear()
-        # newstuff
+
+
+        # # firstplacefinder
+        # # so we have scoresint, and scores. Find the min, remove it from both, and then find the next min inside a variable.
+        #
+
+
+        # leaderboardnames = []
+        # leaderboardscores = []
+        # for i in range(10):
+        #     index = scoresint.index(min(scoresint))
+        #     leadnames = self.names[index]
+        #     leaderboardnames.append(leadnames)
+        #     leadscores = self.scores[index]
+        #     leaderboardscores.append(leadscores)
+        #     del self.names[index]
+        #     del scoresint[index]
+        #     del self.scores[index]
+        #
+        #
+        # print(leaderboardscores)
+        # print(leaderboardnames)
+
+
+        # for i in range(10):
+        #     print(str(leaderboardnames[i]), 'with a score of ' + str(leaderboardscores[i]))
+        #
+        # leaderboardscores.clear()
+        # leaderboardnames.clear()
+        # # newstuff
 
         # temp_list_scores = []
         # for i in leaderboardscores:
@@ -416,8 +448,8 @@ class WaitScreen(Screen):
         #         temp_list_names.append(i)
         #
         # self.leaderboardnames = temp_list_names
+        Thread(target=self.switch_screen).start()
 
-        self.switch_screen()
         # https://www.guru99.com/python-howto-remove-duplicates.html
 
     # delete dooplicate fiunction?
