@@ -73,12 +73,118 @@ class MainScreen(Screen):
     enter = ObjectProperty(None)
     timer = ObjectProperty(None)
 
+    #cursormovement
+    square = ObjectProperty(None)
+    enterpressed = False
+    x_check = 0
+    y_check = 0
+    def CursorCheck(self):
+        print("CursorCheck")
+        MainObjectList = [self.a1,self.b1,self.c1,self.d1,self.e1,self.f1,self.g1,self.h1,self.i1,self.j1,self.k1,self.l1,self.m1,self.n1,self.o1,self.p1,self.q1,self.r1,self.s1,self.t1,self.u1,self.v1,self.w1,self.x1,self.y1,self.z1,self.space,self.star,self.dash,self.delete,self.enter]
+
+        while self.enterpressed == False:
+            if TripleMain.leftmove:
+                print('leftmove')
+                for i in range(14):
+                    self.square.x -= 5.7
+                TripleMain.leftmove = False
+
+            if TripleMain.rightmove:
+                print('right move')
+                for x in range(14):
+                    self.square.x += 5.7
+                TripleMain.rightmove = False
+            if TripleMain.click:
+                print('clcked')
+                # print('x:',self.square.x)
+                # print('y:',self.square.y)
+                for thing in MainObjectList:
+                    #print(thing.text)
+                    if self.square.collide_widget(thing):
+                        print(thing.text)
+                        #thing.on_press()
+                        thing.trigger_action(duration=0.1)
+                        thing.color = (1,1,1,1)
+                        sleep(0.2)
+                        thing.color = (0,1,0,1)
+                        #thing.state = 'down'
+                        #sleep(0.2)
+                        #thing.state = 'normal'
+
+
+                TripleMain.click = False
+
+            if TripleMain.upmove:
+                print('up move')
+                for y in range(14):
+                    self.square.y += 6.5
+                TripleMain.upmove = False
+
+            if TripleMain.downmove:
+                print('down move')
+                for y in range(14):
+                    self.square.y -= 6.5
+                TripleMain.downmove = False
+
+            sleep(1.2)
+
+
+        # while self.enterpressed == False:
+        #     if TripleMain.leftmove:
+        #         print('leftmove')
+        #         for i in range(14):
+        #             self.x_check -= 1
+        #             if self.x_check < 0:
+        #                 self.x_check=0
+        #             elif self.x_check >= 0:
+        #                 self.square.x -= 5.7
+        #
+        #         TripleMain.leftmove = False
+        #
+        #     if TripleMain.rightmove:
+        #         print('right move')
+        #         for x in range(14):
+        #             self.x_check += 1
+        #             if self.x_check > 9:
+        #                 self.x_check = 9
+        #             elif self.x_check <= 9:
+        #                 self.square.x += 5.7
+        #         TripleMain.rightmove = False
+        #
+        #     if TripleMain.click:
+        #         print('clcked')
+        #         TripleMain.click = False
+        #
+        #     if TripleMain.upmove:
+        #         print('up move')
+        #         for y in range(14):
+        #             self.y_check -= 1
+        #             if self.y_check < 0:
+        #                 self.y_check = 0
+        #             elif self.y_check >= 0:
+        #                 self.square.y += 6.5
+        #         TripleMain.upmove = False
+        #
+        #     if TripleMain.downmove:
+        #         print('down move')
+        #         for y in range(14):
+        #             self.y_check += 1
+        #             if self.y_check > 2:
+        #                 self.y_check=2
+        #             elif self.y_check <= 2:
+        #                 self.square.y -= 6.5
+        #         TripleMain.downmove = False
+        #     print(self.x_check)
+        #     print(self.y_check)
+        #     sleep(.8)
     # making a file that appends each new name when it is entered:
 
     # this works, now how to add each line to an array so that it can be read and a leaderboard can be made. #burh the v key is missing
     fileonopen = open('namestorage.txt', 'w')
     fileonopen.write(' ')
     fileonopen.close()
+
+    TripleMain.KeyboardIsOn = True
 
     def old_clear(self):
         deletion = 0
@@ -89,6 +195,7 @@ class MainScreen(Screen):
     counter = 0
 
     def resetimername(self):
+        Thread(target=self.CursorCheck).start()
         for i in range(30):
             self.DELETE_Key_Update()
         self.timer.text = "ENTER YOUR NAME: "
@@ -303,6 +410,7 @@ class MainScreen(Screen):
         self.counter += 1
 
     def ENTER_Key_Update(self):
+        self.enterpressed = True
         if self.counter > 0:
             file = open('namestorage.txt', 'r')
             name = file.read()

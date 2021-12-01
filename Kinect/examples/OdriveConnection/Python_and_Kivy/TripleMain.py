@@ -54,6 +54,12 @@ kivyIsOn = False
 time_start = time.time()
 KeyboardIsOn = False
 
+click = False
+rightmove = False
+leftmove = False
+upmove = False
+downmove = False
+
 def global_variable_reset():
     global KinectIsOn
     global kivyIsOn
@@ -212,8 +218,7 @@ def odrive_and_kinect_startup():
                 # print("RightY:", righthandy)
 
 
-            _k4a.k4a_capture_release(capture.handle())
-            _k4abt.k4abt_frame_release(body_frame.handle())
+
 
 
 
@@ -238,8 +243,6 @@ def odrive_and_kinect_startup():
 
         if KeyboardIsOn:
 
-
-
             body_list = [body_frame.get_body_skeleton(body_num) for body_num in range(body_frame.get_num_bodies())]  # creates bodylist
             try:
                 close_body = min(body_list, key=lambda body: body.joints[26].position.xyz.z)  # grabs the minimum body according to the head z depth
@@ -260,20 +263,63 @@ def odrive_and_kinect_startup():
                 lefthandy = close_body.joints[8].position.xyz.y
                 lefthandx = close_body.joints[8].position.xyz.x
 
-                # print("LeftHandx Value:",lefthandx)
+                tolerance = 200
+#BEHOLD THE FINAL IF STATEMENT
 
+                if lefthandy < (heady + tolerance) and lefthandy > (heady - tolerance) and lefthandx < (headx + tolerance) and lefthandx > (headx - tolerance) or righthandy < (heady + tolerance) and righthandy > (heady - tolerance) and righthandx < (headx + tolerance) and righthandx > (headx - tolerance):
+                #     # for i in range(30):
+                #     #     print("left hand head clicked")
+                #     #     print("LeftHandx",lefthandx)
+                #     #     print("LeftHandy",lefthandy)
+                #     #     print("RightHandx",righthandx)
+                #     #     print("LeftHandy",righthandy)
+                #     #     print("Headx",headx)
+                #     #     print("Heady",heady)
+                #     # print('00000000000000')
+                    global click
+                    click = True
 
+                if righthandx > headx + tolerance and lefthandx > headx + tolerance:
+                    # print('11111111111111')
+                    global leftmove
+                    leftmove = True
 
-            _k4a.k4a_capture_release(capture.handle())
-            _k4abt.k4abt_frame_release(body_frame.handle())
+                if lefthandx < headx - tolerance and righthandx < headx - tolerance:
+                    # print('2222222222222')
+                    global rightmove
+                    rightmove = True
 
+                if lefthandy < heady - tolerance and righthandy < heady - tolerance:
+                    # print('2222222222222')
+                    global upmove
+                    upmove = True
 
+                if lefthandx-righthandx < tolerance and righthandx - lefthandx < tolerance: # Put ya hands together y'all!
+                    global downmove
+                    downmove = True
 
+                # rightmove = False
+                # click = False
+                # leftmove = False
 
             if cv2.waitKey(1) == ord('q'):
                 ax.set_vel(0)
                 ax.idle()
                 break
+
+        if KinectIsOn:
+            KeyboardIsOn = False
+        if KinectIsOn == False:
+            KeyboardIsOn = True
+        if KeyboardIsOn:
+            KinectIsOn= False
+        if KeyboardIsOn == False:
+            KinectIsOn = True
+        # print(KinectIsOn)
+        # print((KeyboardIsOn))
+
+        _k4a.k4a_capture_release(capture.handle())
+        _k4abt.k4abt_frame_release(body_frame.handle())
 
 if __name__ == '__main__':
 
